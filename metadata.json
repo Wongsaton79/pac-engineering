@@ -1,0 +1,6 @@
+{
+  "name": "PAC Engineering - System Tracking & BOQ",
+  "description": "ระบบจัดการฐานข้อมูลลูกค้า ใบเสนอราคา (BOQ) ติดตามงานโครงการ คลังสินค้า บริการหลังการขาย และจัดการสิทธิ์ผู้ใช้งานสำหรับ PAC Engineering",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

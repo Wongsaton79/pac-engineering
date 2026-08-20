@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* ============================================================
+     CSS สำหรับเอกสาร A4 ใบเสนอราคา (BOQ Document)
+     ============================================================ */
+  :root {
+    --font-th: "Sarabun", "Angsana New", "AngsanaUPC", serif;
+    --font-en: "Prompt", "Times New Roman", serif;
+    --fs-base: 13pt;
+    --fs-small: 10pt;
+    --line: 1px solid #000;
+    --fill: #ccf2f7;
+    --page-w: 210mm;
+    --page-pad: 8mm;
+  }
+
+  .page-a4 {
+    width: var(--page-w);
+    min-height: 297mm;
+    padding: var(--page-pad);
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    font-family: var(--font-th);
+    font-size: var(--fs-base);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .doc-frame {
+    border: 2px solid #000;
+  }
+
+  .doc-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .doc-td, .doc-th {
+    vertical-align: top;
+    padding: 2px 4px;
+    overflow-wrap: break-word;
+  }
+
+  .bt { border-top: var(--line); }
+  .bb { border-bottom: var(--line); }
+  .br { border-right: var(--line); }
+  .bl { border-left: var(--line); }
+  .fill { background: var(--fill); }
+  .fill-yellow { background: #fef08a; }
+  .fill-cyan { background: #a5f3fc; }
+
+  .sig-box {
+    height: 80px;
+    position: relative;
+    text-align: center;
+  }
+  .sig-line {
+    position: absolute;
+    bottom: 22px;
+    left: 6%;
+    right: 6%;
+    font-size: 9pt;
+  }
+  .sig-role {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    font-size: 8.5pt;
+  }
+  .sig-date {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    font-size: 8pt;
+  }
+
+  .ed-span {
+    outline: none;
+    transition: background-color 0.15s ease;
+  }
+  textarea.ed-span {
+    resize: none;
+    overflow: hidden;
+    word-break: break-word;
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .ed-span:hover {
+    background-color: #fef9c3;
+  }
+  .ed-span:focus {
+    background-color: #e0f2fe;
+    box-shadow: inset 0 0 0 1px #0284c7;
+  }
+
+  .page-a4.locked .ed-span {
+    pointer-events: none;
+    background-color: transparent !important;
+  }
+  .page-a4.locked .no-print-locked {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   PRINT MEDIA RULES (สำหรับการพิมพ์เอกสาร A4 ออกทางเครื่องพิมพ์/PDF)
+   ============================================================ */
+@page {
+  size: A4 portrait;
+  margin: 5mm;
+}
+
+@media print {
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .no-print,
+  nav,
+  aside,
+  header,
+  .fab-menu,
+  .btn-no-print {
+    display: none !important;
+  }
+
+  /* Reset layout containers */
+  #root, main, div {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .page-a4 {
+    display: block !important;
+    width: 200mm !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #fff !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  .doc-frame {
+    border: 2px solid #000 !important;
+    page-break-inside: avoid;
+  }
+
+  .ed-span, input, select, textarea {
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    resize: none !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
+}
