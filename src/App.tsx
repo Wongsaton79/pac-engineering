@@ -30,6 +30,7 @@ import { ServiceView } from './components/ServiceView';
 import { UserManagementView } from './components/UserManagementView';
 import { AuditLogView } from './components/AuditLogView';
 import { GoogleSheetSyncModal } from './components/GoogleSheetSyncModal';
+import { SiteTrackingView } from './components/SiteTrackingView';
 import { thaiToday, qtId } from './utils/formatters';
 
 export default function App() {
@@ -41,6 +42,14 @@ export default function App() {
     db.quotations.length ? db.quotations[0].uid : ''
   );
   const [isSheetModalOpen, setIsSheetModalOpen] = useState<boolean>(false);
+  const [isQuotaExceeded, setIsQuotaExceeded] = useState<boolean>(false);
+
+  // Google Maps Quota Listener
+  useEffect(() => {
+    const handleQuota = () => setIsQuotaExceeded(true);
+    window.addEventListener('gmp-quota-exceeded', handleQuota);
+    return () => window.removeEventListener('gmp-quota-exceeded', handleQuota);
+  }, []);
 
   // Auto-save and Auto-sync whenever db state changes
   useEffect(() => {
@@ -498,6 +507,7 @@ export default function App() {
     installation: '2. ติดตามงานติดตั้ง (โครงการ)',
     inventory: 'คลังสินค้า (วัสดุและอะไหล่คงเหลือ)',
     service: '3. บริการหลังการขาย (Service)',
+    'site-tracking': '4. พิกัดหน้างาน & เช็คอิน GPS (Site Tracking)',
     users: 'การจัดการสิทธิ์ผู้ใช้งาน (User & Role)',
     audit: 'ประวัติการแก้ไขข้อมูล (Audit Logs)',
     sheet: 'การเชื่อมต่อ Google Sheet'
@@ -510,6 +520,24 @@ export default function App() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-slate-100 font-['Prompt',sans-serif]">
+      {/* Google Maps Platform Quota Exceeded Banner */}
+      {isQuotaExceeded && (
+        <div className="bg-amber-50 border-b border-amber-200 text-amber-900 px-4 py-2.5 text-xs md:text-sm text-center sticky top-0 z-50 shadow-sm">
+          <span>
+            Google Maps Platform quota reached. If you are the app owner, visit{' '}
+            <a
+              href="https://developers.google.com/maps/ai/ai-studio?utm_campaign=gmp_mcp_codeassist_v1_aistudio#quota_exceeded_errors"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline font-semibold text-amber-950 hover:text-amber-800"
+            >
+              maps developer site
+            </a>{' '}
+            for instructions to update your account.
+          </span>
+        </div>
+      )}
+
       {/* Sidebar Navigation */}
       <Sidebar
         activeTab={activeTab}
@@ -585,6 +613,15 @@ export default function App() {
               currentUser={currentUser}
               onSaveService={handleSaveService}
               onWithdrawPart={handleWithdrawPart}
+            />
+          )}
+
+          {activeTab === 'site-tracking' && (
+            <SiteTrackingView
+              db={db}
+              currentUser={currentUser}
+              onUpdateDb={setDb}
+              onLog={performLog}
             />
           )}
 

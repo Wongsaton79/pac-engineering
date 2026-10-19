@@ -7,7 +7,9 @@ import {
   User,
   AuditLog,
   AuditCategory,
-  GoogleSheetConfig
+  GoogleSheetConfig,
+  SiteCheckIn,
+  SiteLocation
 } from '../types';
 import { thaiToday } from '../utils/formatters';
 
@@ -109,7 +111,118 @@ export function getDefaultSeedData(): SystemDatabase {
       lockGrand: true,
       grand: 2000000,
       discountIndex: 3,
-      calc: { total: 1869158.88, vat: 130841.12, grand: 2000000 }
+      calc: { total: 1869158.88, vat: 130841.12, grand: 2000000 },
+      siteLocation: {
+        name: 'บ้านคุณทรงชัย สานกิ่งทอง (บางคอแหลม)',
+        address: '842/42 ถนนเจริญกรุง 107 แยก 36 แขวงบางโคล่ เขตบางคอแหลม กรุงเทพมหานคร 10120',
+        lat: 13.6931,
+        lng: 100.5052,
+        contactPerson: 'คุณทรงชัย สานกิ่งทอง',
+        contactPhone: '081-804-4067'
+      }
+    },
+    {
+      uid: 'Q2',
+      meta: {
+        quoteNo: 'PEN16906002',
+        rev: 'Rev0',
+        date: '10 มิถุนายน 2569',
+        validity: '30',
+        status: 'Approved',
+        quoteBy: 'วิศวกร PAC Engineering 089-499-8487'
+      },
+      company: {
+        docTitle: 'ใบเสนอราคา',
+        logo: '',
+        nameTh: 'บริษัท แพค เอ็นจิเนียริ่ง เซอร์วิส จำกัด',
+        nameEn: 'PAC ENGINEERING SERVICE CO ., LTD.',
+        addr1: '296 Soi Ramintra 65, Ramintra rd., Tarang Bangkhen, Bangkok Thailand 10230',
+        addr2: 'Tel : 66 (2) 945-8364-5  Fax : 66 (2) 945-8366  Website : http://www.pacengineering.co.th'
+      },
+      customer: {
+        attn: 'ฝ่ายวิศวกรรมอาคาร โรงแรมแกรนด์ ริเวอร์ฟร้อนท์',
+        company: 'โรงแรมแกรนด์ ริเวอร์ฟร้อนท์ พระราม 3',
+        tel: '02-689-1000',
+        fax: '',
+        email: 'engineer@grandriverfront.com',
+        addr1: 'เลขที่ 456 ถนนพระราม 3 แขวงบางโพงพาง เขตยานนาวา',
+        addr2: 'กรุงเทพมหานคร 10120'
+      },
+      labels: {
+        attn: 'ATTN', company: 'COMPANY', address: 'ADDRESS', tel: 'TEL.', fax: 'FAX.',
+        date: 'DATE', no: 'No.', email: 'E-MAIL', validity: 'VALIDITY', days: 'Days',
+        offer: 'WE ARE PLEASED TO OFFER THE PRICE OF GOODS FOR THE DETAIL AS BELOW',
+        cNo: 'No.', cModel: 'MODEL', cDesc: 'DESCRIPTION', cQty: 'QUANTITY',
+        cPrice: 'PRICE/UNIT', cAmount: 'AMOUNT', project: 'PROJECT', note: 'หมายเหตุ',
+        terms: 'เงื่อนไขการชำระเงิน', total: 'TOTAL', vat: 'VAT 7%', grand: 'GRAND TOTAL',
+        quoteBy: 'QUOTE BY', signNotice: 'PLEASE SIGN FOR CONFIRM THE ORDER AND SEND BACK TO COMPANY',
+        sig1: 'APPROVAL', sig2: 'SALE EXECUTIVE', sig3: 'SALE MANAGER'
+      },
+      project: {
+        line1: 'โรงแรมแกรนด์ ริเวอร์ฟร้อนท์ พระราม 3',
+        line2: 'PAC Commercial Heat Pump Water Heater 100kW'
+      },
+      items: [
+        { model: 'PAC-HP-100', description: 'ปั๊มความร้อนประหยัดพลังงาน PAC Commercial Heat Pump 100kW', qty: 2, unit: 'SET', pricePerUnit: 420000, amount: 840000, ordered: true },
+        { model: 'PIPE-SYS-02', description: 'งานเดินท่อน้ำร้อน PPR หุ้มฉนวน พร้อมถังเก็บน้ำร้อนสแตนเลส 2,000L', qty: 1, unit: 'JOB', pricePerUnit: 280000, amount: 280000, ordered: true }
+      ],
+      notes: [
+        { text: 'รับประกันคอมเพรสเซอร์ 3 ปี และอุปกรณ์ควบคุม 1 ปี', hl: 'y' }
+      ],
+      sections: [],
+      sig: { img: '', d: '10', m: '06', y: '2569' },
+      vatRate: 7,
+      lockGrand: false,
+      grand: 1198400,
+      discountIndex: -1,
+      calc: { total: 1120000, vat: 78400, grand: 1198400 },
+      siteLocation: {
+        name: 'โรงแรมแกรนด์ ริเวอร์ฟร้อนท์ (พระราม 3)',
+        address: '456 ถนนพระราม 3 แขวงบางโพงพาง เขตยานนาวา กรุงเทพมหานคร 10120',
+        lat: 13.6842,
+        lng: 100.5401,
+        contactPerson: 'คุณอภิชาติ (หัวหน้าแผนกช่างอาคาร)',
+        contactPhone: '089-771-2244'
+      }
+    }
+  ];
+
+  const seedCheckIns: SiteCheckIn[] = [
+    {
+      id: 'chk-01',
+      jobRefId: 'Q1',
+      jobTitle: 'บ้านคุณทรงชัย สานกิ่งทอง (VRV DAIKIN)',
+      customerName: 'คุณทรงชัย สานกิ่งทอง',
+      technicianUsername: 'engineer',
+      technicianName: 'ช่างเอกชัย (หัวหน้าชุด)',
+      timestamp: '23 ต.ค. 2569 08:45 น.',
+      isoTimestamp: '2026-10-23T08:45:00.000Z',
+      photoUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+      coords: { lat: 13.6932, lng: 100.5054, accuracy: 12 },
+      siteCoords: { lat: 13.6931, lng: 100.5052 },
+      locationAddress: 'ซอยเจริญกรุง 107 แขวงบางโคล่ เขตบางคอแหลม กทม.',
+      distanceFromSiteMeters: 24,
+      isWithinGeofence: true,
+      note: 'เดินทางถึงหน้างานเรียบร้อย ช่าง 3 คนเข้าตรวจเช็คแนวเดินท่อน้ำยาและจุดติดตั้ง CDU ภายนอกอาคาร',
+      actionType: 'check_in'
+    },
+    {
+      id: 'chk-02',
+      jobRefId: 'Q2',
+      jobTitle: 'โรงแรมแกรนด์ ริเวอร์ฟร้อนท์ พระราม 3 (PAC Heat Pump)',
+      customerName: 'โรงแรมแกรนด์ ริเวอร์ฟร้อนท์ พระราม 3',
+      technicianUsername: 'engineer',
+      technicianName: 'ช่างเอกชัย (หัวหน้าชุด)',
+      timestamp: '22 ต.ค. 2569 13:20 น.',
+      isoTimestamp: '2026-10-22T13:20:00.000Z',
+      photoUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80',
+      coords: { lat: 13.6841, lng: 100.5403, accuracy: 15 },
+      siteCoords: { lat: 13.6842, lng: 100.5401 },
+      locationAddress: 'ดาดฟ้าชั้น 18 โรงแรมแกรนด์ ริเวอร์ฟร้อนท์ ถนนพระราม 3',
+      distanceFromSiteMeters: 28,
+      isWithinGeofence: true,
+      note: 'ทดสอบแรงดันระบบน้ำร้อน Heat Pump 100kW เครื่องทำงานปกติ อุณหภูมิน้ำออก 60°C พร้อมส่งมอบงาน',
+      actionType: 'check_out'
     }
   ];
 
@@ -215,7 +328,8 @@ export function getDefaultSeedData(): SystemDatabase {
     services: seedServices,
     users: seedUsers,
     auditLogs: seedAuditLogs,
-    sheetConfig: seedSheetConfig
+    sheetConfig: seedSheetConfig,
+    checkIns: seedCheckIns
   };
 }
 
@@ -234,6 +348,31 @@ export function loadDatabase(): SystemDatabase {
         if (!parsed.sheetConfig) {
           parsed.sheetConfig = { enabled: false, webAppUrl: '', autoSync: false };
         }
+        if (!parsed.checkIns || !Array.isArray(parsed.checkIns)) {
+          parsed.checkIns = getDefaultSeedData().checkIns;
+        }
+        // Ensure quotations have siteLocation
+        const defaultSeed = getDefaultSeedData();
+        parsed.quotations = parsed.quotations.map(q => {
+          if (!q.siteLocation) {
+            const seedMatch = defaultSeed.quotations.find(sq => sq.uid === q.uid);
+            if (seedMatch?.siteLocation) {
+              return { ...q, siteLocation: seedMatch.siteLocation };
+            }
+            return {
+              ...q,
+              siteLocation: {
+                name: q.project?.line1 || q.customer?.company || 'หน้างานโครงการ PAC',
+                address: [q.customer?.addr1, q.customer?.addr2].filter(Boolean).join(' ') || 'กรุงเทพมหานคร',
+                lat: 13.7367,
+                lng: 100.5231,
+                contactPerson: q.customer?.attn || 'ผู้ประสานงาน',
+                contactPhone: q.customer?.tel || '02-945-8364'
+              }
+            };
+          }
+          return q;
+        });
         return parsed;
       }
     }

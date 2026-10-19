@@ -11,7 +11,8 @@ import {
   History,
   FileSpreadsheet,
   Snowflake,
-  ShieldAlert
+  ShieldAlert,
+  MapPin
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -60,6 +61,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'service',
       label: '3. บริการ / เบิกอะไหล่',
       icon: Headphones,
+      roles: ['admin', 'sales', 'engineer', 'viewer']
+    },
+    {
+      id: 'site-tracking',
+      label: '4. พิกัดหน้างาน & เช็คอิน GPS',
+      icon: MapPin,
       roles: ['admin', 'sales', 'engineer', 'viewer']
     },
     {

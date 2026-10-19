@@ -107,6 +107,7 @@ export interface Quotation {
   grand: number;
   discountIndex: number;
   calc: QuotationCalc;
+  siteLocation?: SiteLocation;
 }
 
 export interface InventoryItem {
@@ -116,6 +117,43 @@ export interface InventoryItem {
   matPrice: number;
   labPrice: number;
   stock: number;
+}
+
+export interface SiteLocation {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+  contactPerson?: string;
+  contactPhone?: string;
+}
+
+export type CheckInActionType = 'check_in' | 'in_progress' | 'check_out';
+
+export interface SiteCheckIn {
+  id: string;
+  jobRefId: string; // Quotation UID or Installation/Service ID
+  jobTitle: string;
+  customerName: string;
+  technicianUsername: string;
+  technicianName: string;
+  timestamp: string; // Readable Thai datetime
+  isoTimestamp: string;
+  photoUrl: string; // Base64 data URL from camera / upload
+  coords: {
+    lat: number;
+    lng: number;
+    accuracy?: number;
+  };
+  siteCoords: {
+    lat: number;
+    lng: number;
+  };
+  locationAddress: string;
+  distanceFromSiteMeters: number;
+  isWithinGeofence: boolean; // within radius e.g. 500m
+  note: string;
+  actionType: CheckInActionType;
 }
 
 export interface InstallationJob {
@@ -162,4 +200,6 @@ export interface SystemDatabase {
   users: User[];
   auditLogs: AuditLog[];
   sheetConfig: GoogleSheetConfig;
+  checkIns: SiteCheckIn[];
 }
+

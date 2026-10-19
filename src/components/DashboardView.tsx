@@ -18,7 +18,10 @@ import {
   FileText,
   Clock3,
   XCircle,
-  HelpCircle
+  HelpCircle,
+  MapPin,
+  Camera,
+  Sparkles
 } from 'lucide-react';
 
 interface DashboardViewProps {
@@ -241,6 +244,37 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           )}
         </div>
+      </div>
+
+      {/* Quick Action: New On-Site GPS & AI Routing Banner */}
+      <div className="bg-gradient-to-r from-emerald-800 via-teal-800 to-indigo-900 rounded-2xl p-4 sm:p-5 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="flex items-start gap-3.5">
+          <div className="p-3 bg-white/10 backdrop-blur-xs rounded-xl text-emerald-300 shrink-0">
+            <MapPin className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500 text-slate-900">
+                ฟังก์ชันใหม่
+              </span>
+              <h3 className="font-bold text-base text-white">
+                ระบบพิกัดหน้างาน Google Maps & เช็คอินช่างพร้อมรูปถ่าย (GPS Check-in)
+              </h3>
+            </div>
+            <p className="text-xs text-slate-200 mt-1 max-w-2xl">
+              จัดพิกัดโครงการบนแผนที่ Google Maps, ให้ช่างถ่ายรูปเช็คอินเข้าหน้างานตรวจสอบ Geofence และมี AI ช่วยวิเคราะห์เส้นทางประหยัดน้ำมัน
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={() => onSelectTab('site-tracking')}
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-emerald-900 hover:bg-emerald-50 rounded-xl font-bold text-xs shadow-md transition-all shrink-0 cursor-pointer"
+        >
+          <Camera className="w-4 h-4 text-emerald-700" />
+          <span>เปิดระบบเช็คอิน & แผนที่</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </button>
       </div>
 
       {/* 5 Overview Metric Cards */}
